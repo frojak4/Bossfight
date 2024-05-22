@@ -10,31 +10,35 @@ namespace Bossfight
     {
         public string Name;
         public int HP;
-        public int Strength;
+        public int MinStrength;
+        public int MaxStrength;
         public int Stamina;
         public int MaxStamina;
 
-        public GameCharacter(string name, int hp, int strength, int stamina, int maxstamina)
+        public GameCharacter(string name, int hp, int minstrength, int maxstrenght, int stamina, int maxstamina)
         {
             Name = name;
             HP = hp;
-            Strength = strength;
+            MinStrength = minstrength;
+            MaxStrength = maxstrenght;
             Stamina = stamina;
             MaxStamina = maxstamina;
         }
 
         public static void Fight(GameCharacter attacker, GameCharacter defender)
         {
-            defender.HP -= attacker.Strength;
+            Random random = new Random();
+            int attack = random.Next(attacker.MinStrength, attacker.MaxStrength);
+            defender.HP -= attack;
             attacker.Stamina -= 10;
-            Console.WriteLine($"{attacker.Name} attacked {defender.Name} for {attacker.Strength}, {defender.Name} now has {defender.HP} HP");
+            Console.WriteLine($"{attacker.Name} attacked {defender.Name} for {attack}, {defender.Name} now has {defender.HP} HP");
             Console.ReadKey(true);
         }
 
         public static void Recharge(GameCharacter user)
         {
             user.Stamina = user.MaxStamina;
-            Console.WriteLine($"{user.Name}'s stamina is now {user.Stamina}");
+            Console.WriteLine($"{user.Name} is recharging. His stamina is now {user.Stamina}");
             Console.ReadKey(true);
         }
 
